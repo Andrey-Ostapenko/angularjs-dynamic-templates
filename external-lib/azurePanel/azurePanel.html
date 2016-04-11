@@ -1,0 +1,9 @@
+<div ng-if="servicesLoaded">
+    <div class="row">
+        <div class="col-md-12" ng-repeat="service in user.services">
+            <azure-service service="service">
+            </azure-service>
+            <hr/>
+        </div>
+    </div>
+</div>
