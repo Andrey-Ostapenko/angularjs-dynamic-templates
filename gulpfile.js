@@ -8,7 +8,7 @@ var server = require('gulp-server-livereload');
 var $ = require('gulp-load-plugins')({ lazy: true });
 
 /**
- * Starts the server with livereload (will change to nodemon and browser-sync)
+ * Starts the server with livereload (change to nodemon and browser-sync)
  */
 gulp.task('serve', [
     'js-integrity',
