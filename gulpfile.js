@@ -1,3 +1,5 @@
+var args = require('yargs').argv;
+var browserSync = require('browser-sync');
 var config = require('./gulp.config')();
 /**
  * Plugins
@@ -6,23 +8,81 @@ var gulp = require('gulp');
 var server = require('gulp-server-livereload');
 
 var $ = require('gulp-load-plugins')({ lazy: true });
-
+var port = process.env.PORT || config.defaultPort;
 /**
- * Starts the server with livereload (change to nodemon and browser-sync)
+ * Starts the server with nodemon and browser-sync
  */
-gulp.task('serve', [
+
+gulp.task('serve-dev', [
     'js-integrity',
     'bower-inject',
     'lib-inject',
     'lib-css-inject',
-    'templateCache-inject'], function() {
-        gulp.src('./')
-            .pipe(server({
-                livereload: true,
-                directoryListing: false,
-                open: true
-            }));
+    'templateCache-inject'],
+    function() {
+        var nodeOptions = {
+            script: config.nodeServer,
+            delayTime: 1,
+            env: {
+                'PORT': port,
+                'NODE_ENV': 'dev'
+            },
+            watch: [config.server]
+        };
+
+        return $.nodemon(nodeOptions)
+            .on('restart', function(ev) {
+                log('*** nodemon restarted');
+                log('files changed on restart:/n' + ev);
+                setTimeout(function() {
+                    browserSync.notify('reloading now ...');
+                    browserSync.reload({ stream: false });
+                }, config.browserReloadDelay);
+            })
+            .on('start', function() {
+                log('*** nodemon started');
+                startBrowserSync();
+                log('*** after');
+            })
+            .on('crash', function() {
+                log('*** nodemon crashed: script crashed for some reason');
+            })
+            .on('exit', function() {
+                log('*** nodemon exited cleanly');
+            });
     });
+
+function startBrowserSync() {
+    log('returning..');
+    if (args.nosync || browserSync.active) {
+        return;
+    }
+
+    log('Starting browser-sync on port ' + port);
+
+    var options = {
+        proxy: 'localhost:' + port,
+        port: 3000,
+        files: [
+            config.app + '**/*.*',
+            config.build + '**/*.*'
+        ],
+        ghostMode: {
+            clicks: true,
+            location: false,
+            forms: true,
+            scroll: true
+        },
+        injectChanges: true,
+        logFileChanges: true,
+        logLevel: 'debug',
+        logPrefix: 'dynamic-templates',
+        notify: true,
+        reloadDelay: 1000
+    };
+
+    browserSync(options);
+}
 
 /**
  * Checks Javascript integrity
@@ -134,3 +194,16 @@ gulp.task('watch', function() {
     gulp.watch([config.allJs, config.htmlLibTemplates, config.libcss],
         ['js-integrity', 'build-lib', 'lib-css-inject', 'templatecache']);
 });
+
+function log(msg) {
+    if (typeof (msg) === 'object') {
+        for (var item in msg) {
+            if (msg.hasOwnProperty(item)) {
+                $.util.log($.util.colors.blue(msg[item]));
+            }
+        }
+    }
+    else {
+        $.util.log($.util.colors.blue(msg));
+    }
+}

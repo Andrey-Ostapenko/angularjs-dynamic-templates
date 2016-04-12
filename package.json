@@ -12,8 +12,15 @@
         "url": "https://chsakell.com/chsakell/dynamic-angularjs-directives.git"
     },
     "scripts": {},
-    "dependencies": {},
+    "dependencies": {
+        "body-parser": "^1.8.2",
+        "compression": "^1.1.0",
+        "cors": "^2.2.0",
+        "express": "^4.9.3",
+        "morgan": "^1.1.1"
+    },
     "devDependencies": {
+        "browser-sync": "^2.11.2",
         "del": "^2.2.0",
         "gulp": "^3.9.1",
         "gulp-angular-filesort": "^1.1.1",
@@ -24,13 +31,16 @@
         "gulp-jscs": "^3.0.2",
         "gulp-load-plugins": "^1.2.0",
         "gulp-minify-html": "^1.0.6",
+        "gulp-nodemon": "^2.0.6",
         "gulp-print": "^2.0.1",
         "gulp-server-livereload": "^1.7.3",
         "gulp-strip-line": "^0.0.1",
         "gulp-uglify": "^1.5.3",
+        "gulp-util": "^3.0.7",
         "jshint": "^2.9.1",
         "jshint-stylish": "^2.1.0",
         "jscs": "^2.11.0",
-        "wiredep": "^4.0.0"
+        "wiredep": "^4.0.0",
+        "yargs": "^4.3.2"
     }
 }

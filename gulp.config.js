@@ -4,6 +4,7 @@ module.exports = function() {
         /**
          * Files paths
          */
+        app: './app/',
         appJs: './app/**/*.js',
         allJs: [
             './app/**/*.js',
@@ -11,12 +12,21 @@ module.exports = function() {
         ],
         build: './build/',
         buildJs: './build/**/*.js',
+
+        /**
+         * browser sync
+         */
+        browserReloadDelay: 1000,
+
         css: 'styles.css',
         html: '**/*.html',
         htmlLibTemplates: './external-lib/**/*.html',
         index: './index.html',
 
         libcss: './external-lib/**/*.css',
+        nodeServer: './server/app.js',
+        defaultPort: 7203,
+
         /**
          * optimized files
          */
@@ -27,6 +37,8 @@ module.exports = function() {
         },
 
         root: './',
+
+        server: './server/',
 
         temp: './temp/',
 
