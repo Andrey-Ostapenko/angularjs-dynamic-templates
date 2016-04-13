@@ -5,20 +5,17 @@ var config = require('./gulp.config')();
  * Plugins
  */
 var gulp = require('gulp');
-var server = require('gulp-server-livereload');
 
 var $ = require('gulp-load-plugins')({ lazy: true });
 var port = process.env.PORT || config.defaultPort;
+
+var injectTasks = ['bower-inject', 'lib-inject', 'lib-css-inject', 'templateCache-inject'];
+
 /**
  * Starts the server with nodemon and browser-sync
  */
 
-gulp.task('serve-dev', [
-    'js-integrity',
-    'bower-inject',
-    'lib-inject',
-    'lib-css-inject',
-    'templateCache-inject'],
+gulp.task('serve', [].concat('js-integrity', injectTasks),
     function() {
         var nodeOptions = {
             script: config.nodeServer,
@@ -65,7 +62,9 @@ function startBrowserSync() {
         port: 3000,
         files: [
             config.app + '**/*.*',
-            config.build + '**/*.*'
+            config.build + '**/*.*',
+            config.index,
+            config.css
         ],
         ghostMode: {
             clicks: true,
@@ -111,12 +110,22 @@ gulp.task('bower-inject', function() {
 });
 
 /**
- * Injects app's dependencies
+ * Injects app's js dependencies
  */
 gulp.task('app-inject', function() {
     return gulp
         .src(config.index)
         .pipe($.inject(gulp.src(config.appJs)))
+        .pipe(gulp.dest(config.root));
+});
+
+/**
+ * Injects app's css dependencies
+ */
+gulp.task('app-css-inject', function() {
+    return gulp
+        .src(config.index)
+        .pipe($.inject(gulp.src(config.css)))
         .pipe(gulp.dest(config.root));
 });
 

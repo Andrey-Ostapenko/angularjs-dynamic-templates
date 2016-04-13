@@ -18,7 +18,7 @@ module.exports = function() {
          */
         browserReloadDelay: 1000,
 
-        css: 'styles.css',
+        css: './styles/*.css',
         html: '**/*.html',
         htmlLibTemplates: './external-lib/**/*.html',
         index: './index.html',
