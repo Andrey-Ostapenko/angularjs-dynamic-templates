@@ -12,7 +12,7 @@ Related post: <a href="http://wp.me/p3mRWu-16D" target="_blank">Dynamic template
 <li><b>bower install</b></li>
 <li><b>gulp serve</b></li>
 </ul>
-Note: Make sure you have <a href="https://nodejs.org/" target="_blank">Node.js</a> 4+ version installed for gulp-inject to work properly. Otherwise downgrade gulp-injecct's version. 
+Note: Make sure you have <a href="https://nodejs.org/" target="_blank">Node.js</a> 4+ version installed for gulp-inject to work properly. Otherwise downgrade gulp-inject's version. 
 <a href="http://wp.me/p3mRWu-16D" target="_blank" alt="">
 <img src="https://chsakell.files.wordpress.com/2016/04/angularjs-dynamic-templates-03.png" alt="">
 </a>
