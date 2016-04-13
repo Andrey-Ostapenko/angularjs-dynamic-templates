@@ -7,7 +7,7 @@
 
     function redisCache() {
         //Usage:
-        //<redis-cache services='azureServices'></redis-cache>"/>
+        //<redis-cache></redis-cache>"/>
         var directive = {
             controller: 'RedisCache',
             restrict: 'E',

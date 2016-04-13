@@ -5,11 +5,9 @@
         .module('azure')
         .directive('azurePanel', azPanel);
 
-    //azurePanel.$inject = ['config'];
-    /* @ngInject */
     function azPanel() {
         //Usage:
-        //<azure-panel services='azureServices'></azure-panel>"/>
+        //<azure-panel user='selectedUser'></azure-panel>"/>
         var directive = {
             scope: {
                 'user': '='
